@@ -29,9 +29,28 @@ export const signup = async (req, res) => {
 			res.cookie("token", token, {
 				httpOnly: true,
 			});
-			res.status(200).send(newUser);
+			const { password: pass, ...userWithoutPassword } = newUser._doc;
+			res.status(200).send(userWithoutPassword);
 		}
 	} catch (error) {
 		res.status(400).send(error);
+	}
+};
+
+export const signin = async (req, res) => {
+	try {
+		const { email, password } = req.body;
+		if (!email || !password) {
+			throw new Error("All fields are required");
+		}
+		const user = req.user;
+		const matchedPassword = await bcrypt.compare(password, user.password);
+		if (!matchedPassword) {
+			throw new Error("Invalid Credentials");
+		}
+		const { password: pass, ...userWithoutPassword } = user._doc;
+		res.status(200).send(userWithoutPassword);
+	} catch (error) {
+		res.status(400).send("ERROR : " + error.message);
 	}
 };
