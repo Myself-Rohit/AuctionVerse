@@ -54,3 +54,12 @@ export const signin = async (req, res) => {
 		res.status(400).send("ERROR : " + error.message);
 	}
 };
+
+export const signout = async (req, res) => {
+	try {
+		res.cookie("token", null);
+		res.status(200).send("Logout Successful");
+	} catch (error) {
+		res.status(400).send("ERROR : " + error.message);
+	}
+};
