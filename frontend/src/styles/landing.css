@@ -1,0 +1,26 @@
+.landing {
+	position: relative;
+	min-height: 100vh;
+	background: url("https://plus.unsplash.com/premium_photo-1661940814738-5a028d647d3a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YXVjdGlvbnxlbnwwfHwwfHx8MA%3D%3D")
+		no-repeat left center / cover;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white; /* Ensures text is readable */
+	text-align: center;
+}
+
+.landing::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.767); /* Adds dark overlay */
+}
+
+.landing div {
+	position: relative;
+	z-index: 1;
+}
