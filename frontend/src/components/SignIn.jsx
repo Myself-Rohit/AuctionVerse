@@ -1,16 +1,49 @@
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import axios from "axios";
 import "../styles/signup.css";
 function signIn() {
 	const [showPassword, setShowPassword] = useState(false);
+	const [formData, setFormData] = useState({});
+	const [error, setError] = useState("");
+	const navigate = useNavigate();
+	const isValidData = () => {
+		if (!formData.email || !formData.password) {
+			setError("email and password are required");
+			return false;
+		}
+		return true;
+	};
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		if (!isValidData()) return;
+
+		try {
+			const res = await axios.post("http://localhost:5173/signin", formData);
+			localStorage.setItem("authToken", JSON.stringify(formData));
+			alert("Signin successful!");
+			navigate("/dashboard");
+		} catch (err) {
+			setError(err?.message || "Signup failed. Please try again.");
+		}
+	};
+	const handleChange = (e) => {
+		setFormData({ ...formData, [e.target.name]: e.target.value });
+	};
 	return (
 		<div className="signup-page">
-			<form className="form">
+			{error && <p className="error">{error}</p>}
+			<form onSubmit={handleSubmit} className="form">
 				<h1>Login Your Account</h1>
 
 				<div>
 					<label htmlFor="email">Email:</label>
-					<input name="email" placeholder="example@gmail.com" type="email" />
+					<input
+						name="email"
+						placeholder="example@gmail.com"
+						type="email"
+						onChange={(e) => handleChange(e)}
+					/>
 				</div>
 				<div>
 					<label htmlFor="password">Password:</label>
@@ -20,6 +53,7 @@ function signIn() {
 							placeholder="password"
 							type={showPassword ? "text" : "password"}
 							autoComplete="none"
+							onChange={(e) => handleChange(e)}
 						/>
 						<span
 							className="toggle-password"
@@ -35,7 +69,7 @@ function signIn() {
 				</div>
 				<p>
 					Don't have an account?{" "}
-					<Link className="navigte" to="/signup">
+					<Link className="navigate" to="/signup">
 						Sign Up
 					</Link>
 				</p>

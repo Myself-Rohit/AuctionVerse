@@ -1,24 +1,62 @@
 import React, { useState } from "react";
 import "../styles/SignUp.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 function signup() {
 	const [showPassword, setShowPassword] = useState(false);
+	const [formData, setFormData] = useState({});
+	const [error, setError] = useState("");
+	const navigate = useNavigate();
+	const isValidData = () => {
+		if (!formData.email || !formData.password) {
+			setError("email and password are required");
+			return false;
+		}
+		return true;
+	};
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		if (!isValidData()) return;
+
+		try {
+			const res = await axios.post("http://localhost:5173/signup", formData);
+			localStorage.setItem("authToken", JSON.stringify(formData));
+			alert("Signin successful!");
+			navigate("/dashboard");
+		} catch (err) {
+			setError(err?.message || "Signup failed. Please try again.");
+		}
+	};
+	const handleChange = (e) => {
+		setFormData({ ...formData, [e.target.name]: e.target.value });
+	};
 	return (
 		<div className="signup-page">
-			<form className="form">
+			{error && <p className="error">{error}</p>}
+			<form onSubmit={handleSubmit} className="form">
 				<h1>Create Your Account</h1>
 				<div>
 					<label htmlFor="userName">User Name:</label>
-					<input name="userName" placeholder="User Name" type="text" />
+					<input
+						onChange={(e) => handleChange(e)}
+						name="userName"
+						placeholder="User Name"
+						type="text"
+					/>
 				</div>
 				<div>
 					<label htmlFor="email">Email:</label>
-					<input name="email" placeholder="example@gmail.com" type="email" />
+					<input
+						onChange={(e) => handleChange(e)}
+						name="email"
+						placeholder="example@gmail.com"
+						type="email"
+					/>
 				</div>
 				<div>
 					<label htmlFor="password">Password:</label>
 					<div className="pass-div">
 						<input
+							onChange={(e) => handleChange(e)}
 							name="password"
 							placeholder="password"
 							type={showPassword ? "text" : "password"}
@@ -38,7 +76,7 @@ function signup() {
 				</div>
 				<p>
 					Already have an account?{" "}
-					<Link className="navigte" to="/signin">
+					<Link className="navigate" to="/signin">
 						Sign In
 					</Link>
 				</p>

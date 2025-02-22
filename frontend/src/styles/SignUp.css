@@ -1,5 +1,6 @@
 .signup-page {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	min-height: 100vh;
@@ -69,9 +70,10 @@ p {
 	text-align: center;
 	margin: 5px;
 }
-.navigte {
-	color: rgb(173, 12, 253);
+.navigate {
+	color: rgb(153, 0, 255);
 	cursor: pointer;
+	text-decoration: none;
 }
 
 button {
@@ -87,6 +89,14 @@ button {
 		background-color: #12d22980;
 		color: azure;
 	}
+}
+.error {
+	color: rgb(231, 62, 62);
+	background: rgb(243, 131, 131);
+	padding: 5px 10px;
+	border-radius: 7px;
+	border: 2px solid rgb(236, 110, 110);
+	font-weight: 600;
 }
 
 @media (min-width: 600px) {

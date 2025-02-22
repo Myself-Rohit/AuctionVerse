@@ -19,16 +19,34 @@ function Header() {
 			/>
 
 			<ul className={`nav-links ${isMenuOpen ? "open" : ""}`}>
-				<Link className="nav-item" to="/dashboard">
+				<Link
+					onClick={() => setIsMenuOpen(!isMenuOpen)}
+					className="nav-item"
+					to="/dashboard"
+				>
 					Dashboard
 				</Link>
-				<Link className="nav-item" to="/postAuction">
+				<Link
+					onClick={() => setIsMenuOpen(!isMenuOpen)}
+					className="nav-item"
+					to="/postAuction"
+				>
 					Post Auction
 				</Link>
-				<Link id="signin-btn" className="nav-item " to="/signin">
+				<Link
+					onClick={() => setIsMenuOpen(!isMenuOpen)}
+					id="signin-btn"
+					className="nav-item "
+					to="/signin"
+				>
 					SignIn
 				</Link>
-				<Link id="signup-btn" className="nav-item " to="/signup">
+				<Link
+					onClick={() => setIsMenuOpen(!isMenuOpen)}
+					id="signup-btn"
+					className="nav-item "
+					to="/signup"
+				>
 					SignUp
 				</Link>
 			</ul>
