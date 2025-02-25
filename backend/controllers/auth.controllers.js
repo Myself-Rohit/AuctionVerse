@@ -43,12 +43,21 @@ export const signin = async (req, res) => {
 		if (!email || !password) {
 			throw new Error("All fields are required");
 		}
-		const user = req.user;
-		const matchedPassword = await bcrypt.compare(password, user.password);
+		const user1 = await User.findOne({ email });
+		if (!user1) {
+			throw new Error("User not found");
+		}
+		const matchedPassword = await bcrypt.compare(password, user1.password);
 		if (!matchedPassword) {
 			throw new Error("Invalid Credentials");
 		}
-		const { password: pass, ...userWithoutPassword } = user._doc;
+		const { password: pass, ...userWithoutPassword } = user1._doc;
+		const token = jwt.sign({ _id: user1._id }, process.env.JWT_SECRET, {
+			expiresIn: "15d",
+		});
+		res.cookie("token", token, {
+			httpOnly: true,
+		});
 		res.status(200).send(userWithoutPassword);
 	} catch (error) {
 		res.status(400).send("ERROR : " + error.message);

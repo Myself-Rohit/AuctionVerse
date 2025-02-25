@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectToDB from "./config/connectToDB.js";
 import authRoute from "./routes/auth.routes.js";
+import auctionRoute from "./routes/auction.routes.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -20,3 +21,4 @@ connectToDB()
 	.catch((err) => console.log(`Error connecting MongoDB: ${err.message}`));
 
 app.use("/api/auth", authRoute);
+app.use("/api/auction", auctionRoute);
