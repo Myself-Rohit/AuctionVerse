@@ -15,7 +15,8 @@ const AuctionSchema = new mongoose.Schema(
 			required: true,
 		},
 		highestBidder: {
-			type: String,
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "User",
 		},
 		closingTime: {
 			type: Date,
@@ -23,6 +24,11 @@ const AuctionSchema = new mongoose.Schema(
 		isClosed: {
 			type: Boolean,
 			default: false,
+		},
+		createdBy: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "User",
+			required: true,
 		},
 	},
 	{ timestamps: true }
