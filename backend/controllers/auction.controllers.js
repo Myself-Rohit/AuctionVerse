@@ -63,8 +63,11 @@ export const bidItem = async (req, res) => {
 		}
 		if (bid > item.currentBid) {
 			item.currentBid = bid;
-			highestBidder = req.user._id;
+			item.highestBidder = req.user._id;
 			await item.save();
+			res.status(200).send("bid successful!");
+		} else {
+			throw new Error("bid too low");
 		}
 	} catch (error) {
 		res.status(400).send("ERROR : " + error);
@@ -91,7 +94,7 @@ export const updateAuctionItem = async (req, res) => {
 			closingTime,
 		});
 		if (updatedItem) await updatedItem.save();
-		res.status(200).send("updated successfully" + updatedItem);
+		res.status(200).send(updatedItem);
 	} catch (error) {
 		res.status(400).send("ERROR : " + error.message);
 	}
@@ -102,7 +105,7 @@ export const removeAuctionItem = async (req, res) => {
 	try {
 		const item = await Auction.findById(id);
 		if (String(req.user?._id) !== String(item.createdBy)) {
-			throw new Error("You are not allowed to update this item");
+			throw new Error("You are not allowed to delete this item");
 		}
 		await Auction.findByIdAndDelete(id);
 		res.status(200).send("Auction item deleted successfully");
