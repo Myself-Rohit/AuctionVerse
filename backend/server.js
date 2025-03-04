@@ -4,11 +4,13 @@ import connectToDB from "./config/connectToDB.js";
 import authRoute from "./routes/auth.routes.js";
 import auctionRoute from "./routes/auction.routes.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 const app = express();
 dotenv.config();
 app.use(cookieParser());
 app.use(express.json());
+app.use(cors());
 const PORT = process.env.PORT || 3001;
 
 connectToDB()

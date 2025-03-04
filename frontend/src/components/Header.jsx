@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../styles/header.css";
 import { Link } from "react-router";
+import { useAuthContext } from "../context/AuthContext";
+import useLogut from "../hooks/useLogout";
 function Header() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+	const { authUser } = useAuthContext();
+	const { logout } = useLogut();
+	const handleLogout = () => {
+		setIsMenuOpen(!isMenuOpen);
+		logout();
+	};
 	return (
 		<nav className="header">
 			<Link className="logo" to="/">
@@ -33,22 +40,35 @@ function Header() {
 				>
 					Post Auction
 				</Link>
-				<Link
-					onClick={() => setIsMenuOpen(!isMenuOpen)}
-					id="signin-btn"
-					className="nav-item "
-					to="/signin"
-				>
-					SignIn
-				</Link>
-				<Link
-					onClick={() => setIsMenuOpen(!isMenuOpen)}
-					id="signup-btn"
-					className="nav-item "
-					to="/signup"
-				>
-					SignUp
-				</Link>
+				{authUser ? (
+					<Link
+						onClick={handleLogout}
+						id="logout-btn"
+						className="nav-item "
+						to="/signin"
+					>
+						Logout
+					</Link>
+				) : (
+					<>
+						<Link
+							onClick={() => setIsMenuOpen(!isMenuOpen)}
+							id="signin-btn"
+							className="nav-item "
+							to="/signin"
+						>
+							SignIn
+						</Link>
+						<Link
+							onClick={() => setIsMenuOpen(!isMenuOpen)}
+							id="signup-btn"
+							className="nav-item "
+							to="/signup"
+						>
+							SignUp
+						</Link>
+					</>
+				)}
 			</ul>
 		</nav>
 	);

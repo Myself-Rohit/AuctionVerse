@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router";
-import axios from "axios";
+import { Link } from "react-router";
 import "../styles/signup.css";
+import useSignin from "../hooks/useSignin.js";
+
 function signIn() {
 	const [showPassword, setShowPassword] = useState(false);
 	const [formData, setFormData] = useState({});
 	const [error, setError] = useState("");
-	const navigate = useNavigate();
+
 	const isValidData = () => {
 		if (!formData.email || !formData.password) {
 			setError("email and password are required");
@@ -14,19 +15,14 @@ function signIn() {
 		}
 		return true;
 	};
+
+	const { loading, signin } = useSignin();
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (!isValidData()) return;
-
-		try {
-			const res = await axios.post("http://localhost:5173/signin", formData);
-			localStorage.setItem("authToken", JSON.stringify(formData));
-			alert("Signin successful!");
-			navigate("/dashboard");
-		} catch (err) {
-			setError(err?.message || "Signup failed. Please try again.");
-		}
+		signin(formData);
 	};
+
 	const handleChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
@@ -73,7 +69,7 @@ function signIn() {
 						Sign Up
 					</Link>
 				</p>
-				<button type="submit">SignIn</button>
+				<button type="submit">{loading ? "Loading..." : "SignIn"}</button>
 			</form>
 		</div>
 	);

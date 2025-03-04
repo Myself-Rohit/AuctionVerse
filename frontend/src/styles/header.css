@@ -40,7 +40,8 @@
 #signin-btn {
 	background-color: #4acf3925;
 }
-#signup-btn {
+#signup-btn,
+#logout-btn {
 	background-color: #37ad27;
 	&:hover {
 		background-color: #32f019;
@@ -49,7 +50,8 @@
 }
 
 #signin-btn,
-#signup-btn {
+#signup-btn,
+#logout-btn {
 	padding: 3px 8px;
 	border-radius: 7px;
 	border: 2px solid #4bcf39;

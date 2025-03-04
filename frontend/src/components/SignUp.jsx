@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "../styles/SignUp.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import useSignup from "../hooks/useSignup.js";
 function signup() {
 	const [showPassword, setShowPassword] = useState(false);
 	const [formData, setFormData] = useState({});
 	const [error, setError] = useState("");
-	const navigate = useNavigate();
 	const isValidData = () => {
 		if (!formData.email || !formData.password) {
 			setError("email and password are required");
@@ -13,18 +13,12 @@ function signup() {
 		}
 		return true;
 	};
+	const { loading, signup } = useSignup();
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		setError("");
 		if (!isValidData()) return;
-
-		try {
-			const res = await axios.post("http://localhost:5173/signup", formData);
-			localStorage.setItem("authToken", JSON.stringify(formData));
-			alert("Signin successful!");
-			navigate("/dashboard");
-		} catch (err) {
-			setError(err?.message || "Signup failed. Please try again.");
-		}
+		signup(formData);
 	};
 	const handleChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -77,10 +71,10 @@ function signup() {
 				<p>
 					Already have an account?{" "}
 					<Link className="navigate" to="/signin">
-						Sign In
+						signin
 					</Link>
 				</p>
-				<button type="submit">SignUp</button>
+				<button type="submit">{loading ? "Loading..." : "Signup"}</button>
 			</form>
 		</div>
 	);

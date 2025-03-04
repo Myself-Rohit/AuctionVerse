@@ -13,6 +13,11 @@ export const signup = async (req, res) => {
 		if (password.length < 4) {
 			throw new Error("password must have at least 4 characters");
 		}
+
+		const userExit = await User.findOne({ email });
+		if (userExit) {
+			throw new Error("User Already Exist!");
+		}
 		const salt = await genSalt(10);
 		const passwordHash = await bcrypt.hash(password, salt);
 
@@ -33,7 +38,7 @@ export const signup = async (req, res) => {
 			res.status(200).send(userWithoutPassword);
 		}
 	} catch (error) {
-		res.status(400).send(error);
+		res.status(400).send(error.message);
 	}
 };
 
