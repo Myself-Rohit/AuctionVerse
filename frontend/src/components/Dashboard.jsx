@@ -1,21 +1,24 @@
 import React from "react";
 import "../styles/dashboard.css";
+import useGetAuctionItems from "../hooks/useGetAutionItems";
+import { Link } from "react-router";
 function Dashboard() {
-	const data = [
-		{ bidName: "bid1", price: 100, status: "closed" },
-		{ bidName: "bid2", price: 200, status: "open" },
-		{ bidName: "bid3", price: 200, status: "closed" },
-	];
+	const { loading, data } = useGetAuctionItems();
+
+	if (loading) {
+		return <div>No Item to display</div>;
+	}
 	return (
 		<div className="dashboard">
 			<ul className="container">
-				{data.map((bid) => (
-					<li key={bid.bidName} className="card">
-						<span>Name: {bid.bidName} </span>
-						<span>Price: ${bid.price} </span>
-						<span>{bid.status}</span>
-					</li>
-				))}
+				{data &&
+					data.map((bid) => (
+						<Link to={`/item/${bid._id}`} key={bid.itemName} className="card">
+							<span>Name: {bid.itemName} </span>
+							<span>Description : {bid.description} </span>
+							<span>Price: ${bid.currentBid} </span>
+						</Link>
+					))}
 			</ul>
 		</div>
 	);
