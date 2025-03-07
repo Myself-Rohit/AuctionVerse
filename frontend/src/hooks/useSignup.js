@@ -13,7 +13,10 @@ const useSignup = () => {
 			setLoading(true);
 			const res = await axios.post(
 				"http://localhost:3000/api/auth/signup",
-				formData
+				formData,
+				{
+					withCredentials: true,
+				}
 			);
 			if (res.data) {
 				localStorage.setItem("currentUser", JSON.stringify(res.data));

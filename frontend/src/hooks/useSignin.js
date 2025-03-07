@@ -13,7 +13,10 @@ const useSignin = () => {
 			setLoading(true);
 			const res = await axios.post(
 				"http://localhost:3000/api/auth/signin",
-				formData
+				formData,
+				{
+					withCredentials: true,
+				}
 			);
 			if (res.data) {
 				localStorage.setItem("currentUser", JSON.stringify(res.data));

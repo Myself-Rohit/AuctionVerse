@@ -31,11 +31,14 @@ export const signup = async (req, res) => {
 			const token = jwt.sign({ _id: newUser._id }, process.env.JWT_SECRET, {
 				expiresIn: "15d",
 			});
-			res.cookie("token", token, {
-				httpOnly: true,
-			});
+
 			const { password: pass, ...userWithoutPassword } = newUser._doc;
-			res.status(200).send(userWithoutPassword);
+			res
+				.status(200)
+				.cookie("token", token, {
+					httpOnly: true,
+				})
+				.send(userWithoutPassword);
 		}
 	} catch (error) {
 		res.status(400).send(error.message);
@@ -60,10 +63,13 @@ export const signin = async (req, res) => {
 		const token = jwt.sign({ _id: user1._id }, process.env.JWT_SECRET, {
 			expiresIn: "15d",
 		});
-		res.cookie("token", token, {
-			httpOnly: true,
-		});
-		res.status(200).send(userWithoutPassword);
+
+		res
+			.status(200)
+			.cookie("token", token, {
+				httpOnly: true,
+			})
+			.send(userWithoutPassword);
 	} catch (error) {
 		res.status(400).send("ERROR : " + error.message);
 	}
@@ -71,7 +77,7 @@ export const signin = async (req, res) => {
 
 export const signout = async (req, res) => {
 	try {
-		res.cookie("token", null);
+		res.clearCookie("token");
 		res.status(200).send("Logout Successful");
 	} catch (error) {
 		res.status(400).send("ERROR : " + error.message);
