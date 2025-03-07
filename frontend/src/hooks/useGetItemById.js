@@ -13,7 +13,6 @@ const useGetItemById = (itemId) => {
 			);
 			if (res.data) {
 				setData(res.data);
-				console.log("single Item>>>>", res.data);
 			}
 		} catch (error) {
 			toast.error(error?.response?.message || "failed to get auction items!");

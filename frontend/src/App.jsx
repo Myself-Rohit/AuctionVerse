@@ -11,6 +11,7 @@ import PostAuction from "./components/PostAuction";
 import { ToastContainer } from "react-toastify";
 import { useAuthContext } from "./context/AuthContext.jsx";
 import AuctionItem from "./components/AuctionItem.jsx";
+import UpdateAuctionItem from "./components/UpdateAuctionItem.jsx";
 function App() {
 	const { authUser } = useAuthContext();
 	return (
@@ -25,6 +26,10 @@ function App() {
 				<Route
 					path="/postAuction"
 					element={authUser ? <PostAuction /> : <SignIn />}
+				/>
+				<Route
+					path="/update/:id"
+					element={authUser ? <UpdateAuctionItem /> : <SignIn />}
 				/>
 				<Route
 					path="/item/:id"

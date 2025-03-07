@@ -75,10 +75,10 @@ export const bidItem = async (req, res) => {
 };
 
 export const updateAuctionItem = async (req, res) => {
-	const { itemName, description, closingTime } = req.body;
+	const { itemName, description, currentBid, closingTime } = req.body;
 	const { id } = req.params;
 	try {
-		if (!itemName || !description || !closingTime)
+		if (!itemName || !description || !closingTime || !currentBid)
 			throw new Error("All fields required");
 		const item = await Auction.findById(id);
 		if (!item) {
@@ -91,6 +91,7 @@ export const updateAuctionItem = async (req, res) => {
 		const updatedItem = await Auction.findByIdAndUpdate(id, {
 			itemName,
 			description,
+			currentBid,
 			closingTime,
 		});
 		if (updatedItem) await updatedItem.save();

@@ -2,34 +2,34 @@ import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-const usePostItem = () => {
+const useUpdateItem = () => {
 	const [loading, setLoading] = useState(false);
-	const postItem = async (formData) => {
+
+	const updateItem = async (formData, itemId) => {
 		setLoading(true);
 		try {
 			if (!formData.closingTime) {
 				throw new Error("All fields required!");
 			}
-			const date = new Date(formData?.closingTime).toISOString();
-
-			const res = await axios.post(
-				`http://localhost:3000/api/auction/create`,
+			const date = new Date(formData.closingTime).toISOString();
+			const res = await axios.patch(
+				`http://localhost:3000/api/auction/update/${itemId}`,
 				{ ...formData, closingTime: date },
 				{ withCredentials: true }
 			);
 			if (res.data) {
-				toast.success("Auction item created");
+				toast.success("Auction item updated");
 			}
 		} catch (error) {
 			toast.error(
 				error?.response?.message ||
 					error?.message ||
-					"failed to create auction item"
+					"failed to update auction item"
 			);
 		} finally {
 			setLoading(false);
 		}
 	};
-	return { loading, postItem };
+	return { loading, updateItem };
 };
-export default usePostItem;
+export default useUpdateItem;
