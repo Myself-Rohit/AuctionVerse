@@ -4,14 +4,41 @@
 }
 .container {
 	display: flex;
-	gap: 10px;
+	gap: 20px;
+	flex-wrap: wrap;
 }
 .card {
-	background: white;
-	color: black;
-	padding: 10px;
+	color: rgb(247, 247, 247);
 	border-radius: 5px;
 	margin-top: 10px;
 	display: flex;
 	flex-direction: column;
+	text-decoration: none;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	background-color: #2e3740;
+	overflow: hidden;
+	max-width: 300px;
+	transition: 0.3s;
+	&:hover {
+		transform: scale(1.1);
+	}
+}
+
+.card-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 2px solid gray;
+	padding: 10px;
+}
+.card-body {
+	padding: 10px;
+	flex-grow: 1;
+}
+.card-foot {
+	background-color: #586572;
+	padding: 10px;
+	text-align: center;
 }

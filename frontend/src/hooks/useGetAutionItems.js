@@ -13,7 +13,7 @@ const useGetAuctionItems = () => {
 				setData(res.data);
 			}
 		} catch (error) {
-			toast.error(error?.response?.message || "failed to get auction items!");
+			toast.error(error?.response?.data || "failed to get auction items!");
 		} finally {
 			setLoading(false);
 		}

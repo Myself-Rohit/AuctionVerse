@@ -76,7 +76,7 @@ p {
 	text-decoration: none;
 }
 
-button {
+.auth-button {
 	background: transparent;
 	padding: 10px;
 	border-radius: 10px;

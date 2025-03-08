@@ -74,7 +74,9 @@ function signup() {
 						signin
 					</Link>
 				</p>
-				<button type="submit">{loading ? "Loading..." : "Signup"}</button>
+				<button className="auth-button" type="submit">
+					{loading ? "Loading..." : "Signup"}
+				</button>
 			</form>
 		</div>
 	);

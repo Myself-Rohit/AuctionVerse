@@ -22,7 +22,7 @@ const useUpdateItem = () => {
 			}
 		} catch (error) {
 			toast.error(
-				error?.response?.message ||
+				error?.response?.data ||
 					error?.message ||
 					"failed to update auction item"
 			);

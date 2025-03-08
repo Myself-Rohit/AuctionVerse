@@ -7,7 +7,28 @@
 }
 
 .root {
-	background: black;
+	background: #121212;
 	min-height: 100vh;
 	color: whitesmoke;
+}
+
+.button-primary {
+	margin-top: 10px;
+	background: #32f019c9;
+	text-decoration: none;
+	font-size: larger;
+	font-weight: 600;
+	letter-spacing: 1px;
+	color: white;
+	padding: 10px 16px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: 0.3s;
+	display: block;
+	width: 100%;
+}
+
+.button-primary:hover {
+	background: #27c212c9;
 }

@@ -70,7 +70,7 @@ function PostAuction() {
 					/>
 				</div>
 
-				<button className="post-btn" type="submit">
+				<button className="button-primary" type="submit">
 					{loading ? "Loading..." : "Create Item"}
 				</button>
 			</form>

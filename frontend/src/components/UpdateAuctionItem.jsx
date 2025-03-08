@@ -90,7 +90,7 @@ function UpdateAuctionItem() {
 					/>
 				</div>
 
-				<button className="post-btn" type="submit">
+				<button className="button-primary" type="submit">
 					{loading ? "Loading..." : "Update Item"}
 				</button>
 			</form>
