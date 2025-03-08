@@ -26,6 +26,9 @@ export const postAuction = async (req, res) => {
 		if (!itemName || !description || !currentBid || !closingTime) {
 			throw new Error("All fields required");
 		}
+		// if (new Date() > new Date(closingTime)) {
+		// 	throw new Error("Close time cannot be less than current time");
+		// }
 		const isItemExist = await Auction.findOne({ itemName });
 		if (isItemExist) {
 			throw new Error("Auction item already Exist");

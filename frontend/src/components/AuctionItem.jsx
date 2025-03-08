@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/auctionItem.css";
 import { useAuthContext } from "../context/AuthContext";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import useGetItemById from "../hooks/useGetItemById.js";
-import useUpdateItem from "../hooks/useUpdateItem.js";
+import useDeleteItem from "../hooks/useDeleteItem.js";
 
 const AuctionItem = () => {
 	const { authUser } = useAuthContext();
 	const { id } = useParams();
 	const { data } = useGetItemById(id);
+	const [showModel, setShowModel] = useState(false);
+	const { loading, deleteItem } = useDeleteItem();
+	const navigate = useNavigate();
+	const handleDelete = async () => {
+		await deleteItem(id);
+		setShowModel(false);
+		navigate("/dashboard");
+	};
 
 	if (!data) {
 		return <></>;
@@ -16,8 +24,32 @@ const AuctionItem = () => {
 
 	return (
 		<div className="item-container">
+			{showModel && (
+				<div className="model">
+					<h1>Do you want to Delete this Auction Item?</h1>
+					<div>
+						<button className="yes-btn" onClick={handleDelete}>
+							Yes, I am sure!
+						</button>
+						<button className="no-btn" onClick={() => setShowModel(false)}>
+							No, Cancel!
+						</button>
+					</div>
+				</div>
+			)}
 			<div className="item-card">
-				<h1 className="item-title">{data?.itemName}</h1>
+				<h1 className="item-title">
+					{data?.itemName}
+
+					{String(data?.createdBy) === String(authUser._id) && (
+						<img
+							className="delete-btn"
+							onClick={() => setShowModel(true)}
+							src="https://img.icons8.com/?size=48&id=102550&format=png"
+							alt="delete button"
+						/>
+					)}
+				</h1>
 				<p className="item-description">{data?.description}</p>
 
 				<div className="bid-section">

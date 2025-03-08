@@ -3,7 +3,8 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
+	position: relative;
+	min-height: calc(100vh - 52px);
 	background-color: #121212;
 	color: #f1f1f1;
 }
@@ -17,11 +18,14 @@
 	text-align: center;
 }
 
-/* Title & Description */
 .item-title {
 	font-size: 24px;
 	font-weight: bold;
 	color: #f1f1f1;
+	display: flex;
+	justify-content: center;
+	align-items: start;
+	gap: 10px;
 }
 
 .item-description {
@@ -30,7 +34,6 @@
 	margin-top: 8px;
 }
 
-/* Bidding Section */
 .bid-section {
 	margin-top: 16px;
 }
@@ -50,7 +53,6 @@
 	color: #aaa;
 }
 
-/* Auction Status */
 .auction-status {
 	margin-top: 20px;
 }
@@ -65,4 +67,47 @@
 .closing-time {
 	font-size: 14px;
 	color: #949292;
+}
+
+.model {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+	height: 100%;
+	background: #000000ce;
+	color: red;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.delete-btn {
+	width: 28px;
+	cursor: pointer;
+}
+.yes-btn,
+.no-btn {
+	border: 2px solid orangered;
+	color: white;
+	padding: 7px 10px;
+	border-radius: 7px;
+	margin-top: 20px;
+	transition: 0.3s;
+	cursor: pointer;
+}
+.yes-btn {
+	background: transparent;
+	&:hover {
+		background: rgb(241, 67, 3);
+	}
+}
+.no-btn {
+	background: orangered;
+	margin-left: 10px;
+	&:hover {
+		background: rgb(212, 60, 5);
+	}
 }
