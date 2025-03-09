@@ -16,7 +16,13 @@ function Dashboard() {
 						<Link to={`/item/${bid._id}`} key={bid.itemName} className="card">
 							<div className="card-head">
 								<span>{bid.itemName} </span>
-								<span>
+								<span
+									className={`${
+										new Date().toISOString() > bid?.closingTime
+											? "closed-bid"
+											: "bid"
+									}`}
+								>
 									{new Date().toISOString() > bid?.closingTime
 										? "closed"
 										: "$" + bid?.currentBid}
@@ -26,7 +32,7 @@ function Dashboard() {
 								<span>{bid?.description}</span>
 							</div>
 							<div className="card-foot">
-								Last updated {moment(bid.updatedAt).format("DD/MM/YYYY")}
+								Closing Date {moment(bid.closingTime).format("DD/MM/YYYY")}
 							</div>
 						</Link>
 					))}

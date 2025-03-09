@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../styles/postItem.css";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import useGetItemById from "../hooks/useGetItemById.js";
 import useUpdateItem from "../hooks/useUpdateItem";
 
@@ -27,10 +27,6 @@ function UpdateAuctionItem() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		updateItem(formData, data?._id);
-		const inputs = document.querySelectorAll(".info-field");
-		inputs.forEach((inp) => {
-			inp.value = "";
-		});
 	};
 	return (
 		<div className="post-page">

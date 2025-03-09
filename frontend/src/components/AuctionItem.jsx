@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/auctionItem.css";
 import { useAuthContext } from "../context/AuthContext";
 import { Link, useNavigate, useParams } from "react-router";
 import useGetItemById from "../hooks/useGetItemById.js";
 import useDeleteItem from "../hooks/useDeleteItem.js";
+import moment from "moment";
 
 const AuctionItem = () => {
 	const { authUser } = useAuthContext();
@@ -41,7 +42,7 @@ const AuctionItem = () => {
 				<h1 className="item-title">
 					{data?.itemName}
 
-					{String(data?.createdBy) === String(authUser._id) && (
+					{String(data?.createdBy?._id) === String(authUser._id) && (
 						<img
 							className="delete-btn"
 							onClick={() => setShowModel(true)}
@@ -58,25 +59,26 @@ const AuctionItem = () => {
 					</p>
 					{data?.highestBidder && (
 						<p className="highest-bidder">
-							Highest Bidder: {data?.highestBidder.username || "Anonymous"}
+							Highest Bidder: {data?.highestBidder?.userName || "Anonymous"}
 						</p>
 					)}
 				</div>
 
 				<div className="auction-status">
-					{data?.isClosed ? (
+					{new Date() > moment(data?.closingTime) ? (
 						<span className="closed">Auction Closed</span>
 					) : (
 						<>
 							<p className="closing-time">
-								Closes at: {new Date(data?.closingTime).toLocaleTimeString()}
+								{"Closes at:" +
+									moment(data?.closingTime).format("hh:mm:ss DD/MM/YYYY")}
 							</p>
-							{String(data?.createdBy) === String(authUser._id) ? (
+							{String(data?.createdBy?._id) === String(authUser._id) ? (
 								<Link className="button-primary" to={`/update/${data?._id}`}>
 									Update Item
 								</Link>
 							) : (
-								<Link className="button-primary" to={`/update/${data?._id}`}>
+								<Link className="button-primary" to={`/bid/${data?._id}`}>
 									Place a Bid
 								</Link>
 							)}

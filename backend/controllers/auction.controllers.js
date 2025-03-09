@@ -12,7 +12,9 @@ export const getAuctionItems = async (req, res) => {
 export const getSingleAuctionItem = async (req, res) => {
 	try {
 		const { id } = req.params;
-		const item = await Auction.findById(id);
+		const item = await Auction.findById(id)
+			.populate("createdBy", "userName")
+			.populate("highestBidder", "userName");
 		res.status(200).send(item);
 	} catch (error) {
 		res.status(400).send("ERROR : " + error.message);
@@ -26,20 +28,20 @@ export const postAuction = async (req, res) => {
 		if (!itemName || !description || !currentBid || !closingTime) {
 			throw new Error("All fields required");
 		}
-		// if (new Date() > new Date(closingTime)) {
-		// 	throw new Error("Close time cannot be less than current time");
-		// }
+		if (new Date() > new Date(closingTime)) {
+			throw new Error("Close time cannot be less than current time");
+		}
 		const isItemExist = await Auction.findOne({ itemName });
 		if (isItemExist) {
 			throw new Error("Auction item already Exist");
 		}
-		const newAuctionItem = await new Auction({
+		const newAuctionItem = new Auction({
 			itemName,
 			description,
 			currentBid,
 			closingTime,
 			createdBy: userId,
-		}).populate("createdBy");
+		});
 		await newAuctionItem.save();
 		res.status(201).send(newAuctionItem);
 	} catch (error) {
