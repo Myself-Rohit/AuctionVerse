@@ -10,7 +10,12 @@ const usePlaceBid = () => {
 			const res = await axios.post(
 				`https://auction-verse-sage.vercel.app/api/auction/bid/${itemId}`,
 				{ bid },
-				{ withCredentials: true }
+				{
+					withCredentials: true,
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
 			);
 			if (res.data) {
 				console.log(res.data);

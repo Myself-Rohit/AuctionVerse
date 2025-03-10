@@ -13,11 +13,25 @@ app.use(cookieParser());
 app.use(
 	cors({
 		origin: "https://auction-verse-mern.vercel.app",
+		methods: "GET, POST, PATCH, DELETE",
+		allowedHeaders: "Content-Type, Authorization",
 		credentials: true,
 	})
 );
 const PORT = process.env.PORT || 3001;
-
+app.options("*", (req, res) => {
+	res.header(
+		"Access-Control-Allow-Origin",
+		"https://auction-verse-mern.vercel.app"
+	);
+	res.header(
+		"Access-Control-Allow-Methods",
+		"GET, POST, PATCH, DELETE, OPTIONS"
+	);
+	res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+	res.header("Access-Control-Allow-Credentials", "true");
+	res.sendStatus(204);
+});
 connectToDB()
 	.then(() => {
 		console.log("Connected to MonngoDB");
