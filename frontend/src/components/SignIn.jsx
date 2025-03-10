@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
-import "../styles/signup.css";
+import "../styles/SignUp.css";
 import useSignin from "../hooks/useSignin.js";
 
 function signIn() {

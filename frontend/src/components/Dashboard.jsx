@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useGetAuctionItems from "../hooks/useGetAutionItems";
+import useGetAuctionItems from "../hooks/useGetAutionItems.js";
 import { Link } from "react-router";
 import "../styles/dashboard.css";
 import moment from "moment";
