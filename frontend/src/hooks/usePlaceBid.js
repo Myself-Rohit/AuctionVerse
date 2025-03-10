@@ -8,7 +8,7 @@ const usePlaceBid = () => {
 		try {
 			setLoading(true);
 			const res = await axios.post(
-				`http://localhost:3000/api/auction/bid/${itemId}`,
+				`https://auction-verse-sage.vercel.app/api/auction/bid/${itemId}`,
 				{ bid },
 				{ withCredentials: true }
 			);

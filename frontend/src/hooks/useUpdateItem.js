@@ -13,7 +13,7 @@ const useUpdateItem = () => {
 			}
 			const date = new Date(formData.closingTime).toISOString();
 			const res = await axios.patch(
-				`http://localhost:3000/api/auction/update/${itemId}`,
+				`https://auction-verse-sage.vercel.app/api/auction/update/${itemId}`,
 				{ ...formData, closingTime: date },
 				{ withCredentials: true }
 			);

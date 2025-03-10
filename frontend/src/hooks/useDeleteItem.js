@@ -9,7 +9,7 @@ const useDeleteItem = () => {
 		setLoading(true);
 		try {
 			const res = await axios.delete(
-				`http://localhost:3000/api/auction/remove/${itemId}`,
+				`https://auction-verse-sage.vercel.app/api/auction/remove/${itemId}`,
 				{ withCredentials: true }
 			);
 			if (res.data) {

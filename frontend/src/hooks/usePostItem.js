@@ -13,7 +13,7 @@ const usePostItem = () => {
 			const date = new Date(formData?.closingTime).toISOString();
 
 			const res = await axios.post(
-				`http://localhost:3000/api/auction/create`,
+				`https://auction-verse-sage.vercel.app/api/auction/create`,
 				{ ...formData, closingTime: date },
 				{ withCredentials: true }
 			);
