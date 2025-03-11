@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import usePostItem from "../hooks/usePostItem";
+import usePostItem from "../hooks/usePostItem.js";
 import "../styles/postItem.css";
 
 function PostAuction() {

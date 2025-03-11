@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../styles/auctionItem.css";
 import { useAuthContext } from "../context/AuthContext";
 import { Link, useNavigate, useParams } from "react-router";

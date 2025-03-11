@@ -13,7 +13,7 @@ const useUpdateItem = () => {
 			}
 			const date = new Date(formData.closingTime).toISOString();
 			const res = await axios.patch(
-				`http://localhost:3000/api/auction/update/${itemId}`,
+				`${import.meta.env.VITE_API_URL}/api/auction/update/${itemId}`,
 				{ ...formData, closingTime: date },
 				{ withCredentials: true }
 			);

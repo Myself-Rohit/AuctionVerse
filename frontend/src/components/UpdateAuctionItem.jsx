@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../styles/postItem.css";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import useGetItemById from "../hooks/useGetItemById.js";
-import useUpdateItem from "../hooks/useUpdateItem";
+import useUpdateItem from "../hooks/useUpdateItem.js";
 
 function UpdateAuctionItem() {
 	const { id } = useParams();

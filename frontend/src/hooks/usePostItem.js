@@ -13,7 +13,7 @@ const usePostItem = () => {
 			const date = new Date(formData?.closingTime).toISOString();
 
 			const res = await axios.post(
-				`http://localhost:3000/api/auction/create`,
+				`${import.meta.env.VITE_API_URL}/api/auction/create`,
 				{ ...formData, closingTime: date },
 				{ withCredentials: true }
 			);

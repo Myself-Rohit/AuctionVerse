@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../styles/header.css";
 import { Link } from "react-router";
 import { useAuthContext } from "../context/AuthContext";
-import useLogut from "../hooks/useLogout";
+import useLogut from "../hooks/useLogout.js";
 function Header() {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const { authUser } = useAuthContext();
