@@ -6,24 +6,28 @@ import auctionRoute from "./routes/auction.routes.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import path from "path";
-
+import { createServer } from "http";
+import { initializeSocket } from "./socket.js";
 const app = express();
 dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
 app.use(
 	cors({
-		origin: "https://auctionverse-nnw5.onrender.com",
+		origin: "http://localhost:5173",
 		methods: ["GET", "POST", "PATCH", "DELETE"],
 		credentials: true,
 	})
 );
+
+const server = createServer(app);
+initializeSocket(server);
 const PORT = process.env.PORT || 3001;
 const __dirname = path.resolve();
 connectToDB()
 	.then(() => {
 		console.log("Connected to MonngoDB");
-		app.listen(PORT, () => {
+		server.listen(PORT, () => {
 			console.log(`app listening at PORT: ${PORT}`);
 		});
 	})

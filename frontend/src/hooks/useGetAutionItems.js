@@ -23,7 +23,7 @@ const useGetAuctionItems = () => {
 	useEffect(() => {
 		getAuctionItems();
 	}, []);
-	return { loading, data };
+	return { loading, data, setData };
 };
 
 export default useGetAuctionItems;
